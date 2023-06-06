@@ -1,0 +1,39 @@
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rubik.rubikinteractive.bistonapp.com.rubik.rubikinteractive.bistonapp.BS_FMsjsalida">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+
+    <ListView
+        android:id="@+id/lsalida"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_newmsj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@mipmap/ic_plus"
+        app:backgroundTint="@color/colorApp"
+        app:fabSize="mini" />
+
+
+
+
+
+
+
+</RelativeLayout>

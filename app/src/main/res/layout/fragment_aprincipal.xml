@@ -1,0 +1,173 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F26524"
+    tools:context="com.rubik.rubikinteractive.bistonapp.com.rubik.rubikinteractive.bistonapp.BS_APrincipal">
+
+    <!-- TODO: Update blank fragment layout -->
+
+   <!-- <ahmed.easyslider.EasySlider
+        android:id="@+id/sliderId2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints" />-->
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewId2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+
+        app:layout_constraintTop_toTopOf="parent"></androidx.viewpager.widget.ViewPager>
+
+
+    <TextView
+        android:id="@+id/txtAplicador"
+        android:layout_width="396dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingBottom="5dp"
+        android:text="Nombre Usuario - Establecimiento"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewId2" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_visitaap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAplicador"
+        card_view:cardElevation="0dp"
+        card_view:cardBackgroundColor="#F26524">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp">
+
+            <ImageView
+                android:id="@+id/img_mdirecta"
+                android:layout_width="42dp"
+                android:layout_height="31dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                card_view:srcCompat="@drawable/icono_proxvisit" />
+
+            <TextView
+                android:id="@+id/txt_mensajeria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_toEndOf="@+id/img_mdirecta"
+                android:layout_toRightOf="@+id/img_mdirecta"
+                android:text="Visitas del Mes"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="15dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_mensaje"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_visitaap"
+        card_view:cardElevation="0dp"
+        card_view:cardBackgroundColor="#F26524">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp">
+
+            <ImageView
+                android:id="@+id/img_mdirecta1"
+                android:layout_width="42dp"
+                android:layout_height="31dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                card_view:srcCompat="@drawable/mensaje" />
+
+            <TextView
+                android:id="@+id/txt_msj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_toEndOf="@+id/img_mdirecta1"
+                android:layout_toRightOf="@+id/img_mdirecta1"
+                android:text="Mensajería Entrada"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="15dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_visitarealizada"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_mensaje"
+        card_view:cardElevation="0dp"
+        card_view:cardBackgroundColor="#F26524">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginRight="0dp">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_toEndOf="@+id/imageView4"
+                android:layout_toRightOf="@+id/imageView4"
+                android:text="Visitas Realizadas"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="42dp"
+                android:layout_height="31dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                app:srcCompat="@drawable/icono_proxvisit" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
