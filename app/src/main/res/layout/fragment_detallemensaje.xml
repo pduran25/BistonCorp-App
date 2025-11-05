@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rubik.rubikinteractive.bistonapp.com.rubik.rubikinteractive.bistonapp.BS_FMensajeria">
+    tools:context="com.rubik.rubikinteractive.bistonapp.BS_FMensajeria">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -130,6 +130,40 @@
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
             android:layout_weight="2.87">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_responder"
+            android:layout_width="258dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            card_view:cardBackgroundColor="#F26524"
+            card_view:cardCornerRadius="25dp">
+
+            <RelativeLayout
+                android:id="@+id/btn_responde"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textrespo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Responder"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_weight="2.87">
+
 
 
             <androidx.cardview.widget.CardView

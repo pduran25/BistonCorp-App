@@ -267,24 +267,29 @@ public class BS_ARegistro4 extends Fragment {
     }
 
     public void CargarDatosExistentes() {
-        if(Utilidades.serv_activo.getObs()!=null){
-            control = Utilidades.serv_activo;
-            edtObs.setText(control.getObs());
-            if(control.getChkprev()==1){
-                chkprev.setChecked(true);
-                edtprev.setText(control.getAccprev());
+        try{
+            if(Utilidades.serv_activo.getObs()!=null){
+                control = Utilidades.serv_activo;
+                edtObs.setText(control.getObs());
+                if(control.getChkprev()==1){
+                    chkprev.setChecked(true);
+                    edtprev.setText(control.getAccprev());
+                }
+                if(control.getChkcorr()==1){
+                    chkcorr.setChecked(true);
+                    edtcorr.setText(control.getAcccorr());
+                }
+                if(control.getChkhora()==1){
+                    chkhora.setChecked(true);
+                    edthora.setText(control.getHorri());
+                }
+                edtauto.setText(control.getAutorizado());
+                edtidauto.setText(control.getIdauto());
             }
-            if(control.getChkcorr()==1){
-                chkcorr.setChecked(true);
-                edtcorr.setText(control.getAcccorr());
-            }
-            if(control.getChkhora()==1){
-                chkhora.setChecked(true);
-                edthora.setText(control.getHorri());
-            }
-            edtauto.setText(control.getAutorizado());
-            edtidauto.setText(control.getIdauto());
+        }catch(Exception e){
+            System.out.println("existio un error al cargar");
         }
+
     }
 
     private void AlmacenarObservacion(){

@@ -79,8 +79,8 @@ public class BS_ARegistro3 extends Fragment implements Response.Listener<JSONObj
     TablaDinamicaest tbd;
     TableLayout tl;
     BS_ARegistro4 registro4;
-    BS_RegistroImg registroimg;
     BS_ARegistro2 registro2;
+    BS_ARegistro1 registro1;
     BS_ARegistro3_5 registro35;
     BS_ARegistro3 registro3;
     ControlServicio control;
@@ -102,6 +102,7 @@ public class BS_ARegistro3 extends Fragment implements Response.Listener<JSONObj
             codvis =  getArguments().getInt("codvis",0);
             idreturn = getArguments().getInt("idreturn",0);
             regestacion = getArguments().getInt("regestacion",0);
+            exist_lamp = getArguments().getInt("existLamp",0);
         }
 
         Inicializardatos();
@@ -116,6 +117,13 @@ public class BS_ARegistro3 extends Fragment implements Response.Listener<JSONObj
 
         btnSgt = (CardView)ll.findViewById(R.id.btn_siguiente);
         btnVolver = (CardView)ll.findViewById(R.id.btn_volver);
+
+        prgDialog = new ProgressDialog(getContext());
+        prgDialog.setMessage("Cargando...");
+        prgDialog.setCancelable(false);
+        request = Volley.newRequestQueue(getContext());
+
+        CargarDatosEstaciones();
         btnSgt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -136,16 +144,13 @@ public class BS_ARegistro3 extends Fragment implements Response.Listener<JSONObj
                         registro35.setArguments(bundle);
                         manager.beginTransaction().replace(R.id.contenedorap, registro35).commit();
                     }else{
-                        registroimg = new BS_RegistroImg();
+                        registro2 = new BS_ARegistro2();
                         Bundle bundle = new Bundle();
                         bundle.putInt("codvxa",codvxa);
                         bundle.putInt("codvis",codvis);
                         bundle.putInt("idreturn",idreturn);
-                        bundle.putInt("numest",tot_num);
-                        bundle.putInt("regestacion",regestacion);
-                        bundle.putInt("existLamp", exist_lamp);
-                        registroimg.setArguments(bundle);
-                        manager.beginTransaction().replace(R.id.contenedorap, registroimg).commit();
+                        registro2.setArguments(bundle);
+                        manager.beginTransaction().replace(R.id.contenedorap, registro2).commit();
                     }
 
 
@@ -167,15 +172,12 @@ public class BS_ARegistro3 extends Fragment implements Response.Listener<JSONObj
 
 
 
-        prgDialog = new ProgressDialog(getContext());
-        prgDialog.setMessage("Cargando...");
-        prgDialog.setCancelable(false);
-        request = Volley.newRequestQueue(getContext());
-
-        CargarDatosEstaciones();
-
         ll.setFocusableInTouchMode(true);
         ll.requestFocus();
+
+
+
+
         ll.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -198,13 +200,13 @@ public class BS_ARegistro3 extends Fragment implements Response.Listener<JSONObj
         CargarValores();
         AlmacenarEstaciones();
         FragmentManager manager = getFragmentManager();
-        registro2 = new BS_ARegistro2();
+        registro1 = new BS_ARegistro1();
         Bundle bundle = new Bundle();
         bundle.putInt("codvxa", codvxa);
         bundle.putInt("codvis", codvis);
         bundle.putInt("idreturn", idreturn);
-        registro2.setArguments(bundle);
-        manager.beginTransaction().replace(R.id.contenedorap, registro2).commit();
+        registro1.setArguments(bundle);
+        manager.beginTransaction().replace(R.id.contenedorap, registro1).commit();
 
     }
 

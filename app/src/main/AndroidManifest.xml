@@ -56,7 +56,8 @@
 
 
 
-        <service android:name="com.rubik.rubikinteractive.bistonapp.MiFirebaseMessagingService">
+        <service android:name="com.rubik.rubikinteractive.bistonapp.MiFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

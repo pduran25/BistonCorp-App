@@ -49,7 +49,7 @@ public class MiFirebaseMessagingService extends FirebaseMessagingService {
 
         Intent intent = new Intent(this, BS_AProximaVisita.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingItem = PendingIntent.getActivity(this,0,intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingItem = PendingIntent.getActivity(this,0,intent, PendingIntent.FLAG_IMMUTABLE);
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 

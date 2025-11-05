@@ -127,16 +127,15 @@ public class BS_ARegistro3_5 extends Fragment implements Response.Listener<JSONO
                     AlmacenarLamparas();
                     FragmentManager manager = getFragmentManager();
 
-                    registroimg = new BS_RegistroImg();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("codvxa",codvxa);
-                    bundle.putInt("codvis",codvis);
-                    bundle.putInt("idreturn",idreturn);
-                    bundle.putInt("numest",numest);
-                    bundle.putInt("regestacion",regestacion);
-                    bundle.putInt("existLamp",exist_lamp);
-                    registroimg.setArguments(bundle);
-                    manager.beginTransaction().replace(R.id.contenedorap, registroimg).commit();
+
+                        registro2 = new BS_ARegistro2();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("codvxa",codvxa);
+                        bundle.putInt("codvis",codvis);
+                        bundle.putInt("idreturn",idreturn);
+                        registro2.setArguments(bundle);
+                        manager.beginTransaction().replace(R.id.contenedorap, registro2).commit();
+
 
 
 

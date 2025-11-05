@@ -56,7 +56,7 @@ public class BS_ARegistro1 extends Fragment implements Response.Listener<JSONObj
     String [][] insumos;
     String [][] consideraciones;
     BS_FDetalleVisitaap sampleFragment;
-    BS_ARegistro2 registro2;
+    BS_ARegistro3 registro3;
 
     LinearLayout ltrat;
     LinearLayout lins;
@@ -79,13 +79,21 @@ public class BS_ARegistro1 extends Fragment implements Response.Listener<JSONObj
     Utilidades manager;
     int bandera = 0;
 
+    int num_est = 0;
+    int regestacion = 0;
+
+    int exist_lamp = 0;
+
+    BS_ARegistro3_5 registro35;
+    BS_ARegistro2 registro2;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Control de servicio 1 de 4");
+        getActivity().setTitle("Control de servicio");
         ll = (LinearLayout)inflater.inflate(R.layout.fragment_apregistro1, container, false);
 
 
@@ -185,16 +193,39 @@ public class BS_ARegistro1 extends Fragment implements Response.Listener<JSONObj
 
                 if(sel_trat.size()>0){
                     Almacenar_cabecera();
-
-                    registro2 = new BS_ARegistro2();
                     FragmentManager manager = getFragmentManager();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("codvxa",codvxa);
-                    bundle.putInt("codvis",codvis);
-                    bundle.putInt("idreturn",idreturn);
-                    registro2.setArguments(bundle);
-                    manager.beginTransaction().replace(R.id.contenedorap, registro2).commit();
-                    manager.getFragments();
+                    if(num_est>0 && regestacion==1) {
+                        registro3 = new BS_ARegistro3();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("codvxa", codvxa);
+                        bundle.putInt("codvis", codvis);
+                        bundle.putInt("idreturn", idreturn);
+                        bundle.putInt("numest", num_est);
+                        bundle.putInt("regestacion", regestacion);
+                        bundle.putInt("existLamp", exist_lamp);
+                        registro3.setArguments(bundle);
+                        manager.beginTransaction().replace(R.id.contenedorap, registro3).commit();
+                        manager.getFragments();
+                    }else if(exist_lamp == 1){
+                        registro35 = new BS_ARegistro3_5();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("codvxa",codvxa);
+                        bundle.putInt("codvis",codvis);
+                        bundle.putInt("idreturn",idreturn);
+                        bundle.putInt("numest",num_est);
+                        bundle.putInt("regestacion",regestacion);
+                        bundle.putInt("existLamp", exist_lamp);
+                        registro35.setArguments(bundle);
+                        manager.beginTransaction().replace(R.id.contenedorap, registro35).commit();
+                    }else{
+                        registro2 = new BS_ARegistro2();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("codvxa",codvxa);
+                        bundle.putInt("codvis",codvis);
+                        bundle.putInt("idreturn",idreturn);
+                        registro2.setArguments(bundle);
+                        manager.beginTransaction().replace(R.id.contenedorap, registro2).commit();
+                    }
 
 
                 }else{
@@ -236,8 +267,6 @@ public class BS_ARegistro1 extends Fragment implements Response.Listener<JSONObj
                 return false;
             }
         });
-
-
 
         return ll;
 
@@ -384,6 +413,8 @@ public class BS_ARegistro1 extends Fragment implements Response.Listener<JSONObj
 
     }
 
+
+
     private void CargarDatosControl() {
         prgDialog.show();
         if (codvis > 0) {
@@ -412,7 +443,20 @@ public class BS_ARegistro1 extends Fragment implements Response.Listener<JSONObj
         List_trat = new ArrayList<>();
         chk_trat = new ArrayList<>();
 
+
+
         try {
+
+            JSONArray jsona = response.optJSONArray("estaciones");
+            JSONObject jsonObjecta=null;
+            jsonObjecta = jsona.getJSONObject(0);
+            num_est = Integer.parseInt(jsonObjecta.optString("num_estacion"));
+            regestacion = Integer.parseInt(jsonObjecta.optString("regestacion"));
+
+            JSONArray jsona1 = response.optJSONArray("reglampara");
+            JSONObject jsonObjecta1=null;
+            jsonObjecta1 = jsona1.getJSONObject(0);
+            exist_lamp = Integer.parseInt(jsonObjecta1.optString("lp_reglamp"));
 
             for(int i=0; i<json.length(); i++) {
 

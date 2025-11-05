@@ -45,6 +45,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Intent;
+import android.net.Uri;
+
 
 public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -54,16 +57,21 @@ public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<J
     JsonObjectRequest jsonObjectRequest;
     ProgressDialog prgDialog, prgDialog2;
     LinearLayout ll;
-    CardView btnVolver, btnControl;
+    CardView btnVolver, btnControl, btnCordon, btnSuspender, btnUbicacion;
     TextView txtfecha, txthora, txtdireccion, txttiempo, txtcomentario, txtorga, txtestab, txtauto;
     TextView txtcantidad1, txtcantidad2, txtcantidad3;
     TextView txtinsumo1, txtinsumo2, txtinsumo3;
     BS_ARegistro1 sampleFragment;
+
+    BS_ARegistroSus registrosus;
     String [][] insumos;
     ArrayList<cs_insumo> List_insumo;
     LinearLayout ltrt ,lins, lcant;
     StringRequest strRequest;
     Utilidades manager;
+
+    String longitud, latitud, label;
+    int idcrono = 0;
 
 
 
@@ -112,6 +120,10 @@ public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<J
 
             btnVolver = (CardView)ll.findViewById(R.id.btn_volve);
             btnControl = (CardView)ll.findViewById(R.id.btn_controlap);
+            btnCordon = (CardView)ll.findViewById(R.id.btn_vercordon);
+
+            btnSuspender = (CardView)ll.findViewById(R.id.btn_suspender);
+            btnUbicacion = (CardView)ll.findViewById(R.id.btn_ubicacion);
 
             manager = new Utilidades(getContext());
            CargarDetalleVisita();
@@ -119,6 +131,44 @@ public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<J
                 @Override
                 public void onClick(View v) {
                     volverAtras();
+
+                }
+            });
+
+            btnUbicacion.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    String uri = "http://maps.google.com/maps?q=loc:" + latitud + "," + longitud + " (" + label + ")";
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    intent.setPackage("com.google.android.apps.maps");
+                    startActivity(intent);
+
+                }
+            });
+
+            btnSuspender.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    FragmentManager manager = getFragmentManager();
+                    registrosus = new BS_ARegistroSus();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("codvxa",codvxa);
+                    bundle.putInt("codvis",codvis);
+                    bundle.putInt("idreturn",idreturn);
+                    registrosus.setArguments(bundle);
+                    manager.beginTransaction().replace(R.id.contenedorap, registrosus).commit();
+
+                }
+            });
+
+            btnCordon.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    String url = "https://app.bistoncorp.com/imgCordon.php?idcrono="+idcrono;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+                    // Inicia la actividad que manejará la apertura del enlace
+                    startActivity(intent);
 
                 }
             });
@@ -427,6 +477,10 @@ public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<J
                 txtorga.setText(response.getString("fc_organizacion"));
                 txtestab.setText(response.getString("fc_establecimiento"));
                 txtdireccion.setText(response.getString("fc_direccion"));
+                idcrono = response.getInt("fc_idcrono");
+                latitud = response.getString("fc_latitud");
+                longitud = response.getString("fc_longitud");
+                label = response.getString("fc_label");
 
                 JSONArray json = response.optJSONArray("tratins");
                 insumos = new String[json.length()][3];

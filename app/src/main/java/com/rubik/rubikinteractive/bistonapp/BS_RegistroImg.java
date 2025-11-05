@@ -224,7 +224,7 @@ public class BS_RegistroImg extends Fragment {
 
         AlmacenarImagenes();
 
-        if(exist_lamp == 1) {
+        /*if(exist_lamp == 1) {
             FragmentManager manager = getFragmentManager();
             registro35 = new BS_ARegistro3_5();
             Bundle bundle = new Bundle();
@@ -244,7 +244,7 @@ public class BS_RegistroImg extends Fragment {
             bundle.putInt("idreturn",idreturn);
             registro3.setArguments(bundle);
             manager.beginTransaction().replace(R.id.contenedorap, registro3).commit();
-        }else{
+        }else{*/
             FragmentManager manager = getFragmentManager();
             registro2 = new BS_ARegistro2();
             Bundle bundle = new Bundle();
@@ -253,7 +253,7 @@ public class BS_RegistroImg extends Fragment {
             bundle.putInt("idreturn",idreturn);
             registro2.setArguments(bundle);
             manager.beginTransaction().replace(R.id.contenedorap, registro2).commit();
-        }
+        //}
 
     }
 

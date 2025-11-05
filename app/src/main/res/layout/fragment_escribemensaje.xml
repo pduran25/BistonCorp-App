@@ -75,15 +75,18 @@
                 android:text=""
                 android:inputType="textMultiLine" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:layout_weight="2.87">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/btn_enviar"
                 android:layout_width="180dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/txt_clavea"
-                android:layout_alignStart="@+id/logotipo"
-                android:layout_alignLeft="@+id/logotipo"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 app:cardElevation="0dp"
                 card_view:cardBackgroundColor="#F26524"
                 card_view:cardCornerRadius="25dp">
@@ -103,17 +106,22 @@
                         android:textSize="15dp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="2.87">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/btn_cerrar"
                 android:layout_width="180dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/txt_clavea"
-                android:layout_alignStart="@+id/logotipo"
-                android:layout_alignLeft="@+id/logotipo"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 app:cardElevation="0dp"
                 card_view:cardBackgroundColor="#F26524"
                 card_view:cardCornerRadius="25dp">
@@ -133,7 +141,7 @@
                         android:textSize="15dp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

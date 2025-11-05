@@ -95,6 +95,8 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
 
     int num_est;
 
+    BS_ARegistro3 registro3;
+
     Spinner spareas;
     Spinner splagas;
     Spinner spoblacion;
@@ -111,7 +113,6 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
     int num_index;
 
     BS_ARegistro1 registro1;
-    BS_ARegistro3 registro3;
     BS_ARegistro3_5 registro35;
     BS_ARegistro4 registro4;
     BS_RegistroImg registroimg;
@@ -125,7 +126,7 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Control de servicio 2 de 4");
+        getActivity().setTitle("Control de Servicio");
         ll = (LinearLayout)inflater.inflate(R.layout.fragment_apregistro2, container, false);
         tl = (TableLayout)ll.findViewById(R.id.tl);
 
@@ -158,7 +159,7 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
                     Almacenar_areas();
                     FragmentManager manager = getFragmentManager();
 
-                    if(num_est>0 && regestacion==1) {
+                    /*if(num_est>0 && regestacion==1) {
                         registro3 = new BS_ARegistro3();
                         Bundle bundle = new Bundle();
                         bundle.putInt("codvxa", codvxa);
@@ -180,7 +181,7 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
                         registro35.setArguments(bundle);
                         manager.beginTransaction().replace(R.id.contenedorap, registro35).commit();
                     }else{
-
+*/
                         registroimg = new BS_RegistroImg();
                         Bundle bundle = new Bundle();
                         bundle.putInt("codvxa",codvxa);
@@ -188,9 +189,10 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
                         bundle.putInt("idreturn",idreturn);
                         bundle.putInt("numest",num_est);
                         bundle.putInt("regestacion",regestacion);
+                        bundle.putInt("existLamp",exist_lamp);
                         registroimg.setArguments(bundle);
                         manager.beginTransaction().replace(R.id.contenedorap, registroimg).commit();
-                    }
+
                 }else{
                     Toast.makeText(getContext(), "No ha seleccionado ninguna Area", Toast.LENGTH_SHORT).show();
                 }
@@ -299,14 +301,53 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
     private void volverAtras2() {
 
         Almacenar_areas();
+       /* if(exist_lamp == 1){
+            FragmentManager manager = getFragmentManager();
+            registro1 = new BS_ARegistro1();
+            Bundle bundle = new Bundle();
+            bundle.putInt("codvxa", codvxa);
+            bundle.putInt("codvis", codvis);
+            bundle.putInt("idreturn", idreturn);
+            registro1.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.contenedorap, registro1).commit();
+        }*/
+
         FragmentManager manager = getFragmentManager();
-        registro1 = new BS_ARegistro1();
-        Bundle bundle = new Bundle();
-        bundle.putInt("codvxa", codvxa);
-        bundle.putInt("codvis", codvis);
-        bundle.putInt("idreturn", idreturn);
-        registro1.setArguments(bundle);
-        manager.beginTransaction().replace(R.id.contenedorap, registro1).commit();
+
+
+
+        if(exist_lamp == 1){
+            registro35 = new BS_ARegistro3_5();
+            Bundle bundle = new Bundle();
+            bundle.putInt("codvxa",codvxa);
+            bundle.putInt("codvis",codvis);
+            bundle.putInt("idreturn",idreturn);
+            bundle.putInt("numest",num_est);
+            bundle.putInt("regestacion",regestacion);
+            bundle.putInt("existLamp", exist_lamp);
+            registro35.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.contenedorap, registro35).commit();
+        }else if(num_est>0 && regestacion==1) {
+            registro3 = new BS_ARegistro3();
+            Bundle bundle = new Bundle();
+            bundle.putInt("codvxa",codvxa);
+            bundle.putInt("codvis",codvis);
+            bundle.putInt("idreturn",idreturn);
+            bundle.putInt("numest",num_est);
+            bundle.putInt("regestacion",regestacion);
+            bundle.putInt("existLamp", exist_lamp);
+            registro3.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.contenedorap, registro3).commit();
+        }else {
+            registro1 = new BS_ARegistro1();
+            Bundle bundle = new Bundle();
+            bundle.putInt("codvxa",codvxa);
+            bundle.putInt("codvis",codvis);
+            bundle.putInt("idreturn",idreturn);
+            registro1.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.contenedorap, registro1).commit();
+        }
+
 
     }
 

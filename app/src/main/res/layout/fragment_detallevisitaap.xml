@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rubik.rubikinteractive.bistonapp.com.rubik.rubikinteractive.bistonapp.BS_FDetalleVisitaap">
+    tools:context="com.rubik.rubikinteractive.bistonapp.BS_FDetalleVisitaap">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -249,14 +249,14 @@
                 </LinearLayout>
             </ScrollView>
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical">
@@ -275,15 +275,18 @@
                     <TextView
                         android:id="@+id/txtComentarioap"
                         android:layout_width="match_parent"
-                        android:layout_height="81dp"
+                        android:layout_height="wrap_content"
                         android:ems="10"
                         android:gravity="top"
                         android:inputType="textMultiLine"
                         android:paddingLeft="0dp"
-                        android:textSize="14dp" />
+                        android:textSize="14dp"
+                        android:maxLines="30" />
                 </LinearLayout>
 
-            </LinearLayout>
+            </ScrollView>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -313,6 +316,108 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="Iniciar Control"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2.87">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_ubicacion"
+                    android:layout_width="258dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    card_view:cardBackgroundColor="#F26524"
+                    card_view:cardCornerRadius="25dp"
+                    card_view:cardElevation="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/btn_ubi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtubi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Ver Ubicación"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2.87">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_vercordon"
+                    android:layout_width="258dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    card_view:cardBackgroundColor="#F26524"
+                    card_view:cardCornerRadius="25dp"
+                    card_view:cardElevation="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/btn_verc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtvercord"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Ver Cordón Sanitario"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2.87">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_suspender"
+                    android:layout_width="258dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    card_view:cardBackgroundColor="#F26524"
+                    card_view:cardCornerRadius="25dp"
+                    card_view:cardElevation="0dp">
+
+                    <RelativeLayout
+                        android:id="@+id/btn_susp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtsuspender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Suspender Visita"
                             android:textColor="#FFFFFF"
                             android:textSize="14dp" />
                     </RelativeLayout>
