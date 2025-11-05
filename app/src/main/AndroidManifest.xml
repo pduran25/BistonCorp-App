@@ -3,7 +3,7 @@
     package="com.rubik.rubikinteractive.bistonapp"
     android:versionCode="5"
     android:versionName="vRubik(0.0.5)">
-
+    <!-- ING. DURÁN AVILÉS -->
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
