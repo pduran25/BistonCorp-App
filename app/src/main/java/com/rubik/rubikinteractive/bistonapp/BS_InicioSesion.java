@@ -17,8 +17,7 @@ import android.widget.Toast;
 import com.rubik.rubikinteractive.bistonapp.Conexion.Utilidades;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.rubik.rubikinteractive.bistonapp.R;
 
 import static android.Manifest.permission.CAMERA;
@@ -46,22 +45,21 @@ public class BS_InicioSesion extends AppCompatActivity {
     private void Continuar_trabajo() {
         Consultar_exiteUsuarioActivo();
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "getInstanceId failed", task.getException());
-                    return;
-                }
-                // Get new Instance ID token
-                String token = task.getResult().getToken();
-                Utilidades.token_local = token;
-                // Log and toast
-                //String msg = getString(R.string.msg_token_fmt, token);
-                Log.d(TAG, "EL TOKEN ES:" + token);
-                //Toast.makeText(BS_InicioSesion.this, token, Toast.LENGTH_SHORT).show();
-            }
-        });
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getToken failed", task.getException());
+                            return;
+                        }
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        Utilidades.token_local = token;
+                        Log.d(TAG, "EL TOKEN ES:" + token);
+                        //Toast.makeText(BS_InicioSesion.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 
@@ -79,7 +77,8 @@ public class BS_InicioSesion extends AppCompatActivity {
         }else{
             requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
         }
-        return false;
+        //return false; flag para mostrar la pagina de sesión
+        return true;
     }
 
     @Override
