@@ -1,29 +1,29 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.rubik.rubikinteractive.bistonapp'
-    compileSdkVersion 36
+    namespace = 'com.rubik.rubikinteractive.bistonapp'
+    compileSdkVersion = 36
 
     defaultConfig {
-        applicationId "com.rubik.rubikinteractive.bistonapp"
+        applicationId = "com.rubik.rubikinteractive.bistonapp"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 6
-        versionName "6.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 6
+        versionName = "6.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     lint {
-        abortOnError false
-        checkReleaseBuilds false
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 }
 
@@ -35,6 +35,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.activity:activity:1.7.2'
+    implementation 'androidx.fragment:fragment:1.6.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0' // Solo si algo lo requiere, trata de migrar todo a AndroidX puro
 
     // Librerías propias y de terceros, revisa compatibilidad
