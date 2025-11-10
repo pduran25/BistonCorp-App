@@ -20,26 +20,64 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.rubik.rubikinteractive.bistonapp.R;
 
-import static android.Manifest.permission.CAMERA;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
 
+import static android.Manifest.permission.CAMERA;
 
 public class BS_InicioSesion extends AppCompatActivity {
 
     private Utilidades manager;
     public static final String TAG = "NOTICIAS";
+
+    // Array de permisos modernos (solo CAMERA; STORAGE no es válido en API 33+)
+    private final String[] REQUIRED_PERMISSIONS = new String[]{
+            CAMERA
+    };
+
+    // Modern launcher de AndroidX para permisos
+    private final ActivityResultLauncher<String[]> requestPermissionsLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                boolean allGranted = true;
+                for (Boolean granted : result.values()) {
+                    if (!granted) {
+                        allGranted = false;
+                        break;
+                    }
+                }
+                if (allGranted) {
+                    Continuar_trabajo();
+                } else {
+                    solicitarPermisosManual();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bs__inicio_sesion);
         manager = new Utilidades(this);
-        //manager.EliminarUsuario();
-        if(validaPermisos()){
-            Continuar_trabajo();
+        validarPermisosModernos();
+    }
+
+    private void validarPermisosModernos() {
+        boolean allGranted = true;
+        for (String perm : REQUIRED_PERMISSIONS) {
+            int check = ContextCompat.checkSelfPermission(this, perm);
+            Log.d(TAG, "Permiso " + perm + " check: " + check); // debug
+            if (check != PackageManager.PERMISSION_GRANTED) {
+                allGranted = false;
+                break;
+            }
         }
-
-       // validaPermisos();
-
+        if (allGranted) {
+            Log.d(TAG, "Todos los permisos concedidos");
+            Continuar_trabajo();
+        } else {
+            Log.d(TAG, "Faltan permisos, lanzando solicitud");
+            requestPermissionsLauncher.launch(REQUIRED_PERMISSIONS);
+        }
     }
 
     private void Continuar_trabajo() {
@@ -53,46 +91,11 @@ public class BS_InicioSesion extends AppCompatActivity {
                             Log.w(TAG, "getToken failed", task.getException());
                             return;
                         }
-                        // Get new FCM registration token
                         String token = task.getResult();
                         Utilidades.token_local = token;
                         Log.d(TAG, "EL TOKEN ES:" + token);
-                        //Toast.makeText(BS_InicioSesion.this, token, Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-
-    private boolean validaPermisos(){
-        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
-            return true;
-        }
-
-        if((checkSelfPermission(CAMERA)== PackageManager.PERMISSION_GRANTED)&&(checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
-            return true;
-        }
-
-        if((shouldShowRequestPermissionRationale(CAMERA))||(shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
-            cargarDialogoRecomendacion();
-        }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
-        }
-        //return false; flag para mostrar la pagina de sesión
-        return true;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode == 100){
-            if(grantResults.length == 2 && grantResults[0]==PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1]==PackageManager.PERMISSION_GRANTED){
-                Continuar_trabajo();
-            }else{
-                solicitarPermisosManual();
-            }
-        }
     }
 
     private void solicitarPermisosManual(){
@@ -117,60 +120,31 @@ public class BS_InicioSesion extends AppCompatActivity {
         builder.show();
     }
 
-    private void cargarDialogoRecomendacion(){
-        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-        dialogo.setTitle("Permisos Desactivados");
-        dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
-            }
-        });
-        dialogo.show();
-    }
-
     private void Consultar_exiteUsuarioActivo() {
         Cursor cursor = manager.CargarDatosUsuario();
         if (cursor.getCount() > 0) {
             int tipous = 0;
             int pos_tus = cursor.getColumnIndex(manager.US_TUS);
             if (cursor.getCount() > 0) {
-                //todos los datos del Usuario son conocidos desde este momento.
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     tipous = cursor.getInt(pos_tus);
                 }
                 Utilidades.continuo = 1;
             }
             if(tipous == 2 || tipous == 1) {
-                //new Handler().postDelayed(new Runnable() {
-                  //  @Override
-                   // public void run() {
-                        Intent intent = new Intent(BS_InicioSesion.this, BS_MenuCliente.class);
-                        startActivity(intent);
-                        finish();
-                  //  }
-               // }, 4000);
+                Intent intent = new Intent(BS_InicioSesion.this, BS_MenuCliente.class);
+                startActivity(intent);
+                finish();
             }else if(tipous == 3){
-               // new Handler().postDelayed(new Runnable() {
-                //    @Override
-                 //   public void run() {
-                        Intent intent = new Intent(BS_InicioSesion.this, BS_MenuAplicador.class);
-                        startActivity(intent);
-                        finish();
-                   //}
-               // }, 4000);
+                Intent intent = new Intent(BS_InicioSesion.this, BS_MenuAplicador.class);
+                startActivity(intent);
+                finish();
             }
         }else{
             Utilidades.continuo = 0;
-           // new Handler().postDelayed(new Runnable(){
-              //  @Override
-              //  public void run(){
-                    Intent intent = new Intent(BS_InicioSesion.this, BS_seltipousuario.class);
-                    startActivity(intent);
-                    finish();
-               // }
-            //},4000);
+            Intent intent = new Intent(BS_InicioSesion.this, BS_seltipousuario.class);
+            startActivity(intent);
+            finish();
         }
     }
 }
