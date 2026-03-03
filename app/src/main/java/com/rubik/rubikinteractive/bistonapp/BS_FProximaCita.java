@@ -164,6 +164,7 @@ public class BS_FProximaCita extends Fragment implements Response.Listener<JSONO
 
     @Override
     public void onResponse(JSONObject response) {
+        prgDialog.dismiss();
         prgDialog.hide();
         JSONArray json = response.optJSONArray("fechas");
 

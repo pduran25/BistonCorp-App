@@ -154,6 +154,7 @@ public class BS_FDetalleVisita extends Fragment implements Response.Listener<JSO
     @Override
     public void onResponse(JSONObject response) {
         try {
+            prgDialog.dismiss();
             prgDialog.hide();
             if(response.getInt("fc_codigo") != 0){
                 txtfecha.setText(response.getString("fc_fecha"));

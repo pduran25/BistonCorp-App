@@ -274,6 +274,7 @@ public class BS_Reagendar extends Fragment implements Response.Listener<JSONObje
                 @Override
                 public void onResponse(String response)
                 {
+                    prgDialog.dismiss();
                     prgDialog2.hide();
                     if(response.equals("reagendado")){
                         Toast.makeText(getContext(), "Peticion enviada exitosamente", Toast.LENGTH_SHORT).show();

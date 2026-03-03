@@ -131,6 +131,7 @@ public class BS_AProximaVisita extends Fragment implements Response.Listener<JSO
 
     @Override
     public void onResponse(JSONObject response) {
+        prgDialog.dismiss();
         prgDialog.hide();
         JSONArray json = response.optJSONArray("visitas");
 

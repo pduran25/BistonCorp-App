@@ -230,6 +230,7 @@ public class BS_MenuCliente extends AppCompatActivity
 
     @Override
     public void onResponse(JSONObject response) {
+        prgDialog.dismiss();
         prgDialog.hide();
         int idestable = 0;
         String nomestab = "";

@@ -65,6 +65,7 @@ public class Utilidades {
     public static final String TC_IMGDISP = "tc_imgdisp";
     public static final String TC_CHKFOTO = "tc_chkfoto";
     public static final String TC_CHKHORA = "tc_chkhora";
+    public static final String TC_CHKALERTA = "tc_chkalerta";
     public static final String TC_ACCPREV = "tc_accprev";
     public static final String TC_ACCCORR = "tc_acccorr";
     public static final String TC_HORRI = "tc_horri";
@@ -170,6 +171,7 @@ public class Utilidades {
             TC_IMGDISP + " INTEGER, " +
             TC_CHKFOTO + " INTEGER, " +
             TC_CHKHORA + " INTEGER, " +
+            TC_CHKALERTA + " INTEGER, " +
             TC_ACCPREV + " TEXT, " +
             TC_ACCCORR + " TEXT, " +
             TC_HORRI + " TEXT, "+
@@ -284,7 +286,7 @@ public class Utilidades {
         return valores;
     }
 
-    private ContentValues genera_control(int id_visxapli, String fecha, int idvisita, String hora_ini, String hora_fin, String obs, int chkprev, int chkcorr, String firma, int imgdisp, int chkfoto, int chkhora, String accprev, String acccorr, String horri, int numest, int numconsi, String autorizado, String idauto, int regestacion) {
+    private ContentValues genera_control(int id_visxapli, String fecha, int idvisita, String hora_ini, String hora_fin, String obs, int chkprev, int chkcorr, String firma, int imgdisp, int chkfoto, int chkhora, int chkalerta, String accprev, String acccorr, String horri, int numest, int numconsi, String autorizado, String idauto, int regestacion) {
         ContentValues valores = new ContentValues();
         valores.put(TC_IDVISXAPLI, id_visxapli);
         valores.put(TC_FECHA, fecha);
@@ -298,6 +300,7 @@ public class Utilidades {
         valores.put(TC_IMGDISP, imgdisp);
         valores.put(TC_CHKFOTO, chkfoto);
         valores.put(TC_CHKHORA, chkhora);
+        valores.put(TC_CHKALERTA, chkalerta);
         valores.put(TC_ACCPREV, accprev);
         valores.put(TC_ACCCORR, acccorr);
         valores.put(TC_HORRI, horri);
@@ -323,6 +326,7 @@ public class Utilidades {
         valores.put(TC_IMGDISP, cs.getImgdisp());
         valores.put(TC_CHKFOTO, cs.getChkfoto());
         valores.put(TC_CHKHORA, cs.getChkhora());
+        valores.put(TC_CHKALERTA, cs.getChkalerta());
         valores.put(TC_ACCPREV, cs.getAccprev());
         valores.put(TC_ACCCORR, cs.getAcccorr());
         valores.put(TC_HORRI, cs.getHorri());
@@ -375,7 +379,7 @@ public class Utilidades {
     }
 
     public void insertar_control(ControlServicio cs){
-        db.insert(TABLA_CONTROL,null, genera_control(cs.getIdvisxapli(), cs.getFecha(), cs.getIdvisita(), cs.getHora_ini(), cs.getHora_fin(), cs.getObs(), cs.getChkprev(), cs.getChkcorr(), cs.getFirma(), cs.getImgdisp(), cs.getChkfoto(), cs.getChkhora(), cs.getAccprev(), cs.getAcccorr(), cs.getHorri(), cs.getNumest(), cs.getNumconsi(), cs.getAutorizado(), cs.getIdauto(), cs.getRegestacion()));
+        db.insert(TABLA_CONTROL,null, genera_control(cs.getIdvisxapli(), cs.getFecha(), cs.getIdvisita(), cs.getHora_ini(), cs.getHora_fin(), cs.getObs(), cs.getChkprev(), cs.getChkcorr(), cs.getFirma(), cs.getImgdisp(), cs.getChkfoto(), cs.getChkhora(), cs.getChkalerta(), cs.getAccprev(), cs.getAcccorr(), cs.getHorri(), cs.getNumest(), cs.getNumconsi(), cs.getAutorizado(), cs.getIdauto(), cs.getRegestacion()));
     }
 
 
@@ -482,7 +486,7 @@ public class Utilidades {
 
 
     public Cursor CargarDatosControl(int id_visxapli) {
-        String[] columnas = new String[]{TC_IDVISXAPLI, TC_FECHA, TC_IDVIS, TC_HINI, TC_HFIN, TC_OBS, TC_CHKPREV, TC_CHKCORR, TC_FIRMA, TC_IMGDISP, TC_CHKFOTO, TC_CHKHORA, TC_ACCPREV, TC_ACCCORR, TC_HORRI, TC_NUMEST, TC_NUMCONSI, TC_AUTORIZADO, TC_IDAUTO, TC_REGESTACION};
+        String[] columnas = new String[]{TC_IDVISXAPLI, TC_FECHA, TC_IDVIS, TC_HINI, TC_HFIN, TC_OBS, TC_CHKPREV, TC_CHKCORR, TC_FIRMA, TC_IMGDISP, TC_CHKFOTO, TC_CHKHORA, TC_CHKALERTA, TC_ACCPREV, TC_ACCCORR, TC_HORRI, TC_NUMEST, TC_NUMCONSI, TC_AUTORIZADO, TC_IDAUTO, TC_REGESTACION};
         String[] parametros = {""+id_visxapli};
         return db.query(TABLA_CONTROL, columnas, TC_IDVISXAPLI+"=?", parametros, null, null, null);
     }
@@ -516,7 +520,7 @@ public class Utilidades {
         db.update(TABLA_USUARIO, valores, US_COD+"=?", parametros);
     }
 
-    public void Actualiza_control(int id_visxapli, String fecha, int idvisita, String hora_ini, String hora_fin, String obs, int chkprev, int chkcorr, String firma, int imgdisp, int chkfoto, int chkhora, String accprev, String acccorr, String horri, int numest, int numconsi, String autorizado, String idauto, int regestacion){
+    public void Actualiza_control(int id_visxapli, String fecha, int idvisita, String hora_ini, String hora_fin, String obs, int chkprev, int chkcorr, String firma, int imgdisp, int chkfoto, int chkhora, int chkalerta, String accprev, String acccorr, String horri, int numest, int numconsi, String autorizado, String idauto, int regestacion){
         ContentValues valores = new ContentValues();
         valores.put(TC_FECHA, fecha);
         valores.put(TC_IDVIS, idvisita);
@@ -529,6 +533,7 @@ public class Utilidades {
         valores.put(TC_IMGDISP, imgdisp);
         valores.put(TC_CHKFOTO, chkfoto);
         valores.put(TC_CHKHORA, chkhora);
+        valores.put(TC_CHKALERTA, chkalerta);
         valores.put(TC_ACCPREV, accprev);
         valores.put(TC_ACCCORR, acccorr);
         valores.put(TC_HORRI, horri);
@@ -554,6 +559,7 @@ public class Utilidades {
         valores.put(TC_IMGDISP, cs.getImgdisp());
         valores.put(TC_CHKFOTO, cs.getChkfoto());
         valores.put(TC_CHKHORA, cs.getChkhora());
+        valores.put(TC_CHKALERTA, cs.getChkalerta());
         valores.put(TC_ACCPREV, cs.getAccprev());
         valores.put(TC_ACCCORR, cs.getAcccorr());
         valores.put(TC_HORRI, cs.getHorri());

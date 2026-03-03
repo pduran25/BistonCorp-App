@@ -110,6 +110,7 @@ public class BS_AVisitada extends Fragment implements Response.Listener<JSONObje
 
     @Override
     public void onResponse(JSONObject response) {
+        prgDialog.dismiss();
         prgDialog.hide();
         JSONArray json = response.optJSONArray("visitas");
 

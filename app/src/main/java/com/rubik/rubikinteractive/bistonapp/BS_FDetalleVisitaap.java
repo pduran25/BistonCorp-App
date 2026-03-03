@@ -426,6 +426,7 @@ public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<J
             @Override
             public void onResponse(String resp)
             {
+                prgDialog2.dismiss();
                 prgDialog2.hide();
                // Toast.makeText(getContext(), "Control Ejecu", Toast.LENGTH_SHORT).show();
             }
@@ -467,6 +468,7 @@ public class BS_FDetalleVisitaap extends Fragment implements Response.Listener<J
     @Override
     public void onResponse(JSONObject response) {
         try {
+            prgDialog.dismiss();
             prgDialog.hide();
             if(response.getInt("fc_codigo") != 0){
 
