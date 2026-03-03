@@ -571,29 +571,26 @@ public class BS_ARegistro2 extends Fragment implements Response.Listener<JSONObj
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (parent.getId()){
-            case R.id.spArea:
-                selarea = Integer.parseInt(areas[position][0]);
-                selnomarea = areas[position][1];
+        int viewId = parent.getId();
 
-                break;
+        if (viewId == R.id.spArea) {
+            selarea = Integer.parseInt(areas[position][0]);
+            selnomarea = areas[position][1];
 
-            case R.id.spPlaga:
-                selplaga = Integer.parseInt(plagas[position][0]);
-                selnomplaga = plagas[position][1];
-                break;
+        } else if (viewId == R.id.spPlaga) {
+            selplaga = Integer.parseInt(plagas[position][0]);
+            selnomplaga = plagas[position][1];
 
-            case R.id.spPoblacion:
-                selpob = Integer.parseInt(poblacion[position][0]);
-                selnompob = poblacion[position][1];
-                break;
+        } else if (viewId == R.id.spPoblacion) {
+            selpob = Integer.parseInt(poblacion[position][0]);
+            selnompob = poblacion[position][1];
 
-            case R.id.spTratamiento:
-                seltrat = Integer.parseInt(tratamientos[position][0]);
-                seltratamiento = tratamientos[position][1];
-                break;
+        } else if (viewId == R.id.spTratamiento) {
+            seltrat = Integer.parseInt(tratamientos[position][0]);
+            seltratamiento = tratamientos[position][1];
         }
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
