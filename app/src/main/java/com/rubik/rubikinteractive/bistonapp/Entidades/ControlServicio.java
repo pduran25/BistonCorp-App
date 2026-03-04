@@ -24,7 +24,7 @@ public class ControlServicio {
     private int imgdisp;
     private int chkfoto;
     private int chkhora;
-    private int chkalerta;
+    private int accalerta;
     private String accprev;
     private String acccorr;
     private String horri;
@@ -189,12 +189,12 @@ public class ControlServicio {
         this.chkhora = chkhora;
     }
 
-    public int getChkalerta() {
-        return chkalerta;
+    public int getAccalerta() {
+        return accalerta;
     }
 
-    public void setChkalerta(int chkalerta) {
-        this.chkalerta = chkalerta;
+    public void setAccalerta(int accalerta) {
+        this.accalerta = accalerta;
     }
 
 

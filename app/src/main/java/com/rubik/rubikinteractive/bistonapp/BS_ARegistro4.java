@@ -55,7 +55,7 @@ public class BS_ARegistro4 extends Fragment {
     Vista vista;
     private int codvxa, codvis, idreturn, numest, regestacion, reglampara;
     EditText edtObs;
-    CheckBox chkprev, chkcorr, chkhora, chkfoto, chkalerta;
+    CheckBox chkprev, chkcorr, chkhora, chkfoto, accalerta;
     EditText edtprev, edtcorr, edthora, edtidauto, edtauto;
     ControlServicio control;
     String hora_fin;
@@ -103,7 +103,7 @@ public class BS_ARegistro4 extends Fragment {
         chkcorr = (CheckBox)ll.findViewById(R.id.chkAccCorr);
         chkhora = (CheckBox)ll.findViewById(R.id.chkHoraRI);
         chkfoto = (CheckBox)ll.findViewById(R.id.chkFotos);
-        chkalerta = (CheckBox)ll.findViewById(R.id.chkAlerta);
+        accalerta = (CheckBox)ll.findViewById(R.id.chkAlerta);
 
         edtprev = (EditText)ll.findViewById(R.id.edtPrev);
         edtcorr = (EditText)ll.findViewById(R.id.edtCorr);
@@ -284,8 +284,8 @@ public class BS_ARegistro4 extends Fragment {
                     chkhora.setChecked(true);
                     edthora.setText(control.getHorri());
                 }
-                if(control.getChkalerta()==1){
-                    chkalerta.setChecked(true);
+                if(control.getAccalerta()==1){
+                    accalerta.setChecked(true);
                 }
                 edtauto.setText(control.getAutorizado());
                 edtidauto.setText(control.getIdauto());
@@ -357,10 +357,10 @@ public class BS_ARegistro4 extends Fragment {
             control.setChkfoto(0);
         }
 
-        if(chkalerta.isChecked()){
-            control.setChkalerta(1);
+        if(accalerta.isChecked()){
+            control.setAccalerta(1);
         }else{
-            control.setChkalerta(0);
+            control.setAccalerta(0);
         }
 
         control.setHora_fin(hora_fin);

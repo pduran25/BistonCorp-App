@@ -77,7 +77,7 @@ public class BS_InicioSesion extends AppCompatActivity {
         }else{
             requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
         }
-        //return false; flag para mostrar la pagina de sesión
+        //return false; //flag para mostrar la pagina de sesión
         return true;
     }
 
