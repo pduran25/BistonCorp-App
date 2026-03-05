@@ -288,6 +288,7 @@ public class BS_PresentaVisita extends Fragment implements Response.Listener<JSO
             @Override
             public void onResponse(String response)
             {
+                prgDialog.dismiss();
                 prgDialog2.hide();
                 Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
             }

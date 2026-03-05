@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ConexionSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME ="bs_bistoncorp";
-    private static final int DB_SCHEME_VERSION = 14;
+    private static final int DB_SCHEME_VERSION = 15;
 
 
     public ConexionSQLiteHelper(Context context) {

@@ -178,7 +178,7 @@ public class BS_FCalendario extends Fragment implements Response.Listener<JSONOb
 
     @Override
     public void onResponse(JSONObject response) {
-
+        prgDialog.dismiss();
         prgDialog.hide();
         JSONArray json = response.optJSONArray("fechas");
         tamanoarray = json.length();

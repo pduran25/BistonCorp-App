@@ -115,6 +115,7 @@ public class BS_ClienteVisitada extends Fragment implements Response.Listener<JS
 
     @Override
     public void onResponse(JSONObject response) {
+        prgDialog.dismiss();
         prgDialog.hide();
         JSONArray json = response.optJSONArray("visitadas");
         if(json.length()>0) {

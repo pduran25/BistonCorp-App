@@ -114,6 +114,7 @@ public class BS_ARegistroSus extends Fragment {
             @Override
             public void onResponse(String resp)
             {
+                prgDialog.dismiss();
                 prgDialog.hide();
                 Toast.makeText(getContext(), resp, Toast.LENGTH_SHORT).show();
                 FragmentManager managera = getFragmentManager();
