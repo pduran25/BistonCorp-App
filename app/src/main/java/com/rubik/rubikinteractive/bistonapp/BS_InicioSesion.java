@@ -64,22 +64,24 @@ public class BS_InicioSesion extends AppCompatActivity {
 
 
     private boolean validaPermisos(){
-        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
-            return true;
-        }
-
-        if((checkSelfPermission(CAMERA)== PackageManager.PERMISSION_GRANTED)&&(checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
-            return true;
-        }
-
-        if((shouldShowRequestPermissionRationale(CAMERA))||(shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
-            cargarDialogoRecomendacion();
-        }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
-        }
-        //return false; //flag para mostrar la pagina de sesión
+    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
         return true;
     }
+
+    if(checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED
+            && checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+        return true;
+    }
+
+    // No tiene permisos aún: pedirlos y NO continuar todavía
+    if(shouldShowRequestPermissionRationale(CAMERA)
+            || shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)){
+        cargarDialogoRecomendacion();
+    }else{
+        requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA},100);
+    }
+    return false;
+}
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
