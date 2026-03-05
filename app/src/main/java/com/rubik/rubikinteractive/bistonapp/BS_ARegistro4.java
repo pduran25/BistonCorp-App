@@ -156,26 +156,31 @@ public class BS_ARegistro4 extends Fragment {
         btnGuarda.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(edtObs.getText().toString().compareTo("")!=0){
-                    if(cont_toque == 0){
-                        if(edtidauto.getText().toString().compareTo("")!=0 && edtauto.getText().toString().compareTo("")!=0){
-                            AlmacenarObservacion();
-                            prgDialoga = new ProgressDialog(getContext());
-                            prgDialoga.setMessage("Cargando...");
-                            prgDialoga.setCancelable(false);
-                            request = Volley.newRequestQueue(getContext());
-                            EnviarDatos();
-                            Utilidades.ListImagen = null;
-                            strRequest.setShouldCache(false);
-                            request.add(strRequest);
-                            cont_toque ++;
-                        }else
-                            Toast.makeText(getContext(), "Falta llenar información de la persona Autorizada", Toast.LENGTH_SHORT).show();
+                try {
+                    if(edtObs.getText().toString().compareTo("")!=0){
+                        if(cont_toque == 0){
+                            if(edtidauto.getText().toString().compareTo("")!=0 && edtauto.getText().toString().compareTo("")!=0){
+                                AlmacenarObservacion();
+                                prgDialoga = new ProgressDialog(getContext());
+                                prgDialoga.setMessage("Cargando...");
+                                prgDialoga.setCancelable(false);
+                                request = Volley.newRequestQueue(getContext());
+                                EnviarDatos();
+                                Utilidades.ListImagen = null;
+                                strRequest.setShouldCache(false);
+                                request.add(strRequest);
+                                cont_toque ++;
+                            }else
+                                Toast.makeText(getContext(), "Falta llenar información de la persona Autorizada", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }else{
+                        Toast.makeText(getContext(), "Falta llenar una Observacion", Toast.LENGTH_SHORT).show();
                     }
-
-
-                }else{
-                    Toast.makeText(getContext(), "Falta llenar una Observacion", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Log.e("ERROR_GUARDAR", "Error en onClick btnGuarda: " + e.getMessage());
+                    Toast.makeText(getContext(), "Error inesperado al guardar", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -229,12 +234,12 @@ public class BS_ARegistro4 extends Fragment {
 
 
     private void guardarFirma(){
-        vista.setDrawingCacheEnabled(true);
-        String imgSaved = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), vista.getDrawingCache(), UUID.randomUUID().toString()+".png","drawing");
+        try {
+            vista.setDrawingCacheEnabled(true);
+            String imgSaved = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), vista.getDrawingCache(), UUID.randomUUID().toString()+".png","drawing");
 
 
-        bitmap_firma = Bitmap.createBitmap(vista.getDrawingCache());
-       // bitmap_firma = vista.getBitmapFromView(vista);
+            bitmap_firma = Bitmap.createBitmap(vista.getDrawingCache());
 
         if(imgSaved!=null){
            // Toast savedToast = Toast.makeText(getContext(),"Firma ha sido Grabada!", Toast.LENGTH_SHORT);
@@ -244,7 +249,10 @@ public class BS_ARegistro4 extends Fragment {
           //  unsavedToast.show();
         }
 
-        vista.destroyDrawingCache();
+            vista.destroyDrawingCache();
+        } catch (Exception e) {
+            Log.e("ERROR_FIRMA", "Error al guardar firma: " + e.getMessage());
+        }
     }
 
 
@@ -269,7 +277,7 @@ public class BS_ARegistro4 extends Fragment {
 
     public void CargarDatosExistentes() {
         try{
-            if(Utilidades.serv_activo.getObs()!=null){
+            if(Utilidades.serv_activo != null && Utilidades.serv_activo.getObs()!=null){
                 control = Utilidades.serv_activo;
                 edtObs.setText(control.getObs());
                 if(control.getChkprev()==1){
@@ -291,87 +299,94 @@ public class BS_ARegistro4 extends Fragment {
                 edtidauto.setText(control.getIdauto());
             }
         }catch(Exception e){
-            System.out.println("existio un error al cargar");
+            Log.e("ERROR_CARGAR", "Error al cargar datos existentes: " + e.getMessage());
         }
 
     }
 
     private void AlmacenarObservacion(){
-        guardarFirma();
-        Time today = new Time(Time.getCurrentTimezone());
-        today.setToNow();
+        try {
+            guardarFirma();
+            Time today = new Time(Time.getCurrentTimezone());
+            today.setToNow();
 
-        String txt_hor, txt_min;
-        int hor = today.hour;
-        int min = today.minute;
+            String txt_hor, txt_min;
+            int hor = today.hour;
+            int min = today.minute;
 
-        if(hor<10){
-            txt_hor = "0"+hor;
-        }else{
-            txt_hor = ""+hor;
+            if(hor<10){
+                txt_hor = "0"+hor;
+            }else{
+                txt_hor = ""+hor;
+            }
+
+            if(min<10) {
+                txt_min = "0" + min;
+            }else{
+                txt_min = "" + min;
+            }
+            hora_fin =txt_hor+":"+txt_min;
+
+            control = Utilidades.serv_activo;
+            if (control == null) {
+                return;
+            }
+            control.setObs(edtObs.getText().toString());
+
+            //accion preventiva
+            if(chkprev.isChecked()){
+                control.setChkprev(1);
+                control.setAccprev(edtprev.getText().toString());
+            }else{
+                control.setChkprev(0);
+                control.setAccprev("");
+            }
+
+            //accion correctiva
+            if(chkcorr.isChecked()){
+                control.setChkcorr(1);
+                control.setAcccorr(edtcorr.getText().toString());
+            }else{
+                control.setChkcorr(0);
+                control.setAcccorr("");
+            }
+
+            control.setFirma(bitmap_firma);
+
+
+            //hora reingreso
+            if(chkhora.isChecked()){
+                control.setChkhora(1);
+                control.setHorri(edthora.getText().toString());
+            }else{
+                control.setChkhora(0);
+                control.setHorri("");
+            }
+
+            if(chkfoto.isChecked()){
+                control.setChkfoto(1);
+            }else{
+                control.setChkfoto(0);
+            }
+
+            if(accalerta.isChecked()){
+                control.setAccalerta(1);
+            }else{
+                control.setAccalerta(0);
+            }
+
+            control.setHora_fin(hora_fin);
+            control.setNumest(numest);
+            control.setIdauto(edtidauto.getText().toString());
+            control.setAutorizado(edtauto.getText().toString());
+            control.setRegestacion(regestacion);
+            control.setReglampara(reglampara);
+            Utilidades.serv_activo = control;
+
+            manager.Actualiza_control2(control);
+        } catch (Exception e) {
+            Log.e("ERROR_ALMACENAR", "Error al almacenar observacion: " + e.getMessage());
         }
-
-        if(min<10) {
-            txt_min = "0" + min;
-        }else{
-            txt_min = "" + min;
-        }
-        hora_fin =txt_hor+":"+txt_min;
-
-        control = Utilidades.serv_activo;
-        control.setObs(edtObs.getText().toString());
-
-        //accion preventiva
-        if(chkprev.isChecked()){
-            control.setChkprev(1);
-            control.setAccprev(edtprev.getText().toString());
-        }else{
-            control.setChkprev(0);
-            control.setAccprev("");
-        }
-
-        //accion correctiva
-        if(chkcorr.isChecked()){
-            control.setChkcorr(1);
-            control.setAcccorr(edtcorr.getText().toString());
-        }else{
-            control.setChkcorr(0);
-            control.setAcccorr("");
-        }
-
-        control.setFirma(bitmap_firma);
-
-
-        //hora reingreso
-        if(chkhora.isChecked()){
-            control.setChkhora(1);
-            control.setHorri(edthora.getText().toString());
-        }else{
-            control.setChkhora(0);
-            control.setHorri("");
-        }
-
-        if(chkfoto.isChecked()){
-            control.setChkfoto(1);
-        }else{
-            control.setChkfoto(0);
-        }
-
-        if(accalerta.isChecked()){
-            control.setAccalerta(1);
-        }else{
-            control.setAccalerta(0);
-        }
-
-        control.setHora_fin(hora_fin);
-        control.setNumest(numest);
-        control.setIdauto(edtidauto.getText().toString());
-        control.setAutorizado(edtauto.getText().toString());
-        control.setRegestacion(regestacion);
-        control.setReglampara(reglampara);
-        Utilidades.serv_activo = control;
-
-        manager.Actualiza_control2(control);
 
     }
 
@@ -397,7 +412,8 @@ public class BS_ARegistro4 extends Fragment {
             {
                 prgDialoga.hide();
                 prgDialoga.dismiss();
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR_VOLLEY", "Error al enviar datos: " + error.toString());
+                Toast.makeText(getContext(), "Error al enviar: " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         })
         {
@@ -409,7 +425,7 @@ public class BS_ARegistro4 extends Fragment {
                 control.setImgdisp(0);
                 list_regimagen = null;
                 if(control.getChkfoto()==0){
-                    if(control.getList_regimagen().size()>0){
+                    if(control.getList_regimagen() != null && control.getList_regimagen().size()>0){
                         control.setImgdisp(1);
                     }
                     list_regimagen = control.getList_regimagen();
@@ -423,21 +439,29 @@ public class BS_ARegistro4 extends Fragment {
     }
 
     private void EliminarInformacion() {
-        manager.EliminarControl(codvxa);
-        if(list_regimagen!=null && list_regimagen.size()>0){
-            registrar_dispositivoimg(codvxa);
+        try {
+            manager.EliminarControl(codvxa);
+            if(list_regimagen!=null && list_regimagen.size()>0){
+                registrar_dispositivoimg(codvxa);
+            }
+        } catch (Exception e) {
+            Log.e("ERROR_ELIMINAR", "Error al eliminar informacion: " + e.getMessage());
         }
     }
 
 
     private void registrar_dispositivoimg(int idvisxapli) {
-        int i = 0;
-        manager = new Utilidades(getContext());
-        cs_idimagen idtemp;
-        for(i=0;i<list_regimagen.size();i++){
-            idtemp = list_regimagen.get(i);
-            idtemp.setIdvisxapli(idvisxapli);
-            manager.insertar_IMAGEN(idtemp,idvisxapli);
+        try {
+            int i = 0;
+            manager = new Utilidades(getContext());
+            cs_idimagen idtemp;
+            for(i=0;i<list_regimagen.size();i++){
+                idtemp = list_regimagen.get(i);
+                idtemp.setIdvisxapli(idvisxapli);
+                manager.insertar_IMAGEN(idtemp,idvisxapli);
+            }
+        } catch (Exception e) {
+            Log.e("ERROR_IMG", "Error al registrar imagen: " + e.getMessage());
         }
 
 
